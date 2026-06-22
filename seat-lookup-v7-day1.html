@@ -782,9 +782,10 @@ function showScanResult(val) {
     // 重复扫码提示
     el.innerHTML = `<div class="scan-result-card" style="border-color:var(--amber)">
       <span class="badge amber">⚠️ 重复扫码</span>
-      <div style="font-size:12px;color:var(--text2);margin:8px 0 4px">座位：${entry.seat}</div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:4px">Order: ${entry.key}</div>
+      <div style="font-size:18px;font-weight:600;margin-bottom:6px">${entry.name}</div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:4px">座位</div>
       <div class="scan-result-seat">${entry.seat}</div>
-      <div style="margin-top:10px;font-size:12px;color:var(--text2)">scanned at ${entry.scanned}</div>
     </div>`;
   } else {
     // 首次扫码成功提示
@@ -950,7 +951,7 @@ async function onScanSuccess(decodedText) {
     // 场景：重复扫码 (中音)
     // 明确提示该票在何时被使用过
     playBeep('duplicate');
-    showToast(`⚠️ 重复签到！\n\n该票已于 ${entry.scanned} 扫码。\n座位：${entry.seat}`);
+    showToast(`⚠️ 重复签到！\n\n该票已于 ${entry.scanned} 扫码。\n类别：${entry.name}\n座位：${entry.seat}`);
   } else {
     // 首次扫码成功：记录数据
     entry.scanned = new Date().toLocaleString();
