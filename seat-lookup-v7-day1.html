@@ -786,7 +786,7 @@ function showScanResult(val) {
     // 重复扫码提示
     el.innerHTML = `<div class="scan-result-card" style="border-color:var(--amber)">
       <span class="badge amber">⚠️ 重复扫码</span>
-      // <div style="font-size:12px;color:var(--text2);margin-bottom:4px">Order: ${entry.key}</div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:4px">Order: ${entry.key}</div>
       <div style="font-size:18px;font-weight:600;margin-bottom:6px">${entry.name}</div>
       <div style="font-size:12px;color:var(--text2);margin-bottom:4px">座位</div>
       <div class="scan-result-seat">${entry.seat}</div>
@@ -795,7 +795,7 @@ function showScanResult(val) {
     // 首次扫码成功提示
     el.innerHTML = `<div class="scan-result-card" style="border-color:var(--green)">
       <span class="badge green">✅ 签到成功</span>
-      // <div style="font-size:12px;color:var(--text2);margin-bottom:4px">Order: ${entry.key}</div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:4px">Order: ${entry.key}</div>
       <div style="font-size:18px;font-weight:600;margin-bottom:6px">${entry.name}</div>
       <div style="font-size:12px;color:var(--text2);margin-bottom:4px">座位</div>
       <div class="scan-result-seat">${entry.seat}</div>
