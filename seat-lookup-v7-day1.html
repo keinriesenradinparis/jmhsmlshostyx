@@ -158,9 +158,16 @@ hr.thin{border:none;border-top:.5px solid var(--border);margin:.75rem 0}
     <div class="card">
       <div class="card-title">📷 摄像头扫码</div>
       <div id="qr-reader"></div>
+    </div>
+  </div>
+  
+  <div id="scan-result"></div>
 
-      <!-- v7: commented these out -->
-      <!-- <div class="status-panel" id="status-panel" style="display:none">
+  <div id="scan-history"></div>
+
+  <div id="panel-scan" class="panel">
+    <div class="card"></div>
+      <div class="status-panel" id="status-panel" style="display:none">
         <div class="status-row">
           <span class="status-label">扫描引擎</span>
           <span class="status-val" id="st-engine">—</span>
@@ -179,21 +186,18 @@ hr.thin{border:none;border-top:.5px solid var(--border);margin:.75rem 0}
             <span class="pulse" id="pulse-dot" style="background:#4ade80"></span>
             <span id="st-live">运行中</span>
           </span>
-        </div> -->
+        </div>
       </div>
     </div>
 
-    <!-- <div class="card">
+    <div class="card">
       <div class="card-title">⌨ 手动输入 / 扫码枪</div>
       <div style="display:flex;gap:8px">
         <input type="text" id="scan-manual" placeholder="输入 Order 码，扫码结果自动填入" oninput="clearScanResult()" onkeydown="if(event.key==='Enter')manualScan()" style="flex:1" inputmode="numeric">
         <button class="primary" onclick="manualScan()">查找</button>
       </div>
-    </div> -->
+    </div>
 
-    <div id="scan-result"></div>
-
-    <div id="scan-history"></div>
   </div>
 
   <!-- 样票 -->
