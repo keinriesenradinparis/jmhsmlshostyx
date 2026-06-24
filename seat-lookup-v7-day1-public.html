@@ -924,26 +924,7 @@ async function onScanSuccess(decodedText) {
     // 场景：无效票 (低音)
     playBeep('error');
     showToast("⚠️ 无效票号：\n" + order);
-  } else if (entry.scanned) {
-    // // --- 新增：插入历史记录 ---
-    // scanHistory.unshift({ 
-    //   name: entry.name, 
-    //   seat: entry.seat, 
-    //   time: new Date().toLocaleString()
-    // });
-    // if (scanHistory.length > 30) scanHistory.pop(); // 保持最多30条
-
-    // 【关键】同步到 localStorage
-    // localStorage.setItem('scan_history', JSON.stringify(scanHistory));
-    // renderHistory(); // 渲染历史列表
-    // -----------------------
-
-    // 场景：重复扫码 (中音)
-    // 明确提示该票在何时被使用过
-    playBeep('duplicate');
-    showToast(`⚠️ 重复签到！\n\n该票已于 ${entry.scanned} 扫码。\n类别：${entry.name}\n座位：${entry.seat}`);
   } else {
-    // 首次扫码成功：记录数据
     entry.scanned = new Date().toLocaleString();
     localStorage.setItem('ticket_db', JSON.stringify(db));
     
@@ -973,7 +954,7 @@ async function onScanSuccess(decodedText) {
     // 成功提示
     // 场景：首次扫码 (高音)
     playBeep('success');
-    showToast(`✅ 签到成功！\n\n类别：${entry.name}\n座位：${entry.seat}`);
+    showToast(`✅ SUCCESS！\n\nCAT: ${entry.name}\nSEAT: ${entry.seat}`);
   }
 
   // 3. 开启定时器，3秒后才允许下一次签到（给用户足够的时间移开手机）
