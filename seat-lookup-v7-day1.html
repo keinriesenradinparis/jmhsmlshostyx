@@ -91,16 +91,17 @@ td:first-child{font-family:monospace;font-size:12px;color:var(--text2)}
 /* Results */
 .seat-number{font-size:52px;font-weight:700;letter-spacing:-1px;line-height:1}
 .scan-result-card{background:var(--bg);border:2px solid var(--green);border-radius:var(--r);padding:1.25rem;text-align:center}
-.scan-result-seat{font-size:56px;font-weight:700;line-height:1}
+.scan-result-seat{font-size:22px;font-weight:700;line-height:1}
 hr.thin{border:none;border-top:.5px solid var(--border);margin:.75rem 0}
 </style>
 </head>
 <body>
 <div class="app">
-  <header>
-    <h1>🎟 票务座位查询系统</h1>
-    <p>iOS · Android · macOS · 全平台扫码支持</p>
-  </header>
+  <!-- v7: commented these out -->
+  <!-- <header> -->
+    <!-- <h1>🎟 票务座位查询系统</h1> -->
+    <!-- <p>iOS · Android · macOS · 全平台扫码支持</p> -->
+  <!-- </header> -->
 
   <div class="tabs">
     <button class="tab active" onclick="switchTab('admin',this)">⚙ 管理端</button>
@@ -158,7 +159,8 @@ hr.thin{border:none;border-top:.5px solid var(--border);margin:.75rem 0}
       <div class="card-title">📷 摄像头扫码</div>
       <div id="qr-reader"></div>
 
-      <div class="status-panel" id="status-panel" style="display:none">
+      <!-- v7: commented these out -->
+      <!-- <div class="status-panel" id="status-panel" style="display:none">
         <div class="status-row">
           <span class="status-label">扫描引擎</span>
           <span class="status-val" id="st-engine">—</span>
@@ -177,17 +179,17 @@ hr.thin{border:none;border-top:.5px solid var(--border);margin:.75rem 0}
             <span class="pulse" id="pulse-dot" style="background:#4ade80"></span>
             <span id="st-live">运行中</span>
           </span>
-        </div>
+        </div> -->
       </div>
     </div>
 
-    <div class="card">
+    <!-- <div class="card">
       <div class="card-title">⌨ 手动输入 / 扫码枪</div>
       <div style="display:flex;gap:8px">
         <input type="text" id="scan-manual" placeholder="输入 Order 码，扫码结果自动填入" oninput="clearScanResult()" onkeydown="if(event.key==='Enter')manualScan()" style="flex:1" inputmode="numeric">
         <button class="primary" onclick="manualScan()">查找</button>
       </div>
-    </div>
+    </div> -->
 
     <div id="scan-result"></div>
 
@@ -782,7 +784,7 @@ function showScanResult(val) {
     // 重复扫码提示
     el.innerHTML = `<div class="scan-result-card" style="border-color:var(--amber)">
       <span class="badge amber">⚠️ 重复扫码</span>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:4px">Order: ${entry.key}</div>
+      // <div style="font-size:12px;color:var(--text2);margin-bottom:4px">Order: ${entry.key}</div>
       <div style="font-size:18px;font-weight:600;margin-bottom:6px">${entry.name}</div>
       <div style="font-size:12px;color:var(--text2);margin-bottom:4px">座位</div>
       <div class="scan-result-seat">${entry.seat}</div>
@@ -791,7 +793,7 @@ function showScanResult(val) {
     // 首次扫码成功提示
     el.innerHTML = `<div class="scan-result-card" style="border-color:var(--green)">
       <span class="badge green">✅ 签到成功</span>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:4px">Order: ${entry.key}</div>
+      // <div style="font-size:12px;color:var(--text2);margin-bottom:4px">Order: ${entry.key}</div>
       <div style="font-size:18px;font-weight:600;margin-bottom:6px">${entry.name}</div>
       <div style="font-size:12px;color:var(--text2);margin-bottom:4px">座位</div>
       <div class="scan-result-seat">${entry.seat}</div>
