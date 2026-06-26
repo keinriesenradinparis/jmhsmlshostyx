@@ -713,7 +713,7 @@ function renderHistory() {
     
   scanHistory.forEach(item => {
     html += `<div style="padding:6px 0;border-bottom:1px solid #eee;display:flex;justify-content:space-between">
-      <span>${item.name} (${item.seat})</span>
+      <span>${item.name} (${item.seat} --> ${item.true_seat})</span>
       <span style="color:var(--text2)">${item.time}</span>
     </div>`;
   });
