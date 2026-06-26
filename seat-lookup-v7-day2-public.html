@@ -104,14 +104,14 @@ hr.thin{border:none;border-top:.5px solid var(--border);margin:.75rem 0}
   <!-- </header> -->
 
   <div class="tabs">
-    <button class="tab active" onclick="switchTab('admin',this)">⚙ 管理端</button>
+    <button class="tab" onclick="">⚙ 管理端</button>
     <!-- <button class="tab" onclick="switchTab('guest',this)">🔍 观众查询</button> -->
-    <button class="tab" onclick="switchTab('scan',this)">📷 工作人员</button>
+    <button class="tab active" onclick="">📷 工作人员</button>
     <!-- <button class="tab" onclick="switchTab('ticket',this)">🎫 样票</button> -->
   </div>
 
   <!-- 管理端 -->
-  <div id="panel-admin" class="panel active">
+  <div id="panel-admin" class="panel">
     <div class="card">
       <div class="card-title">📋 载入座位数据</div>
       <label>粘贴 CSV（Order码, 类别, 座位 — 每行一条）</label>
@@ -154,7 +154,7 @@ hr.thin{border:none;border-top:.5px solid var(--border);margin:.75rem 0}
   </div> -->
 
   <!-- 工作人员扫码 -->
-  <div id="panel-scan" class="panel">
+  <div id="panel-scan" class="panel active">
     <div class="card">
       <div class="card-title">📷 摄像头扫码</div>
       <div id="qr-reader"></div>
@@ -236,7 +236,7 @@ function loadCSV() {
     const key = parts[0];
     if (/order|票号/i.test(key)) return;
     // 添加了 scanned
-    db[key] = { name: parts[1], seat: parts[2], true_seat: parts[3], scanned: null};
+    db[key] = { name: parts[1], seat: parts[2], scanned: null};
   });
   const n = Object.keys(db).length;
   document.getElementById('count-badge').textContent = n + ' 条';
@@ -268,330 +268,289 @@ function initFromStorage() {
 function loadSample() {
   document.getElementById('csv-input').value =
     // "1323974884,张三,A排1号\n1323974885,李四,A排2号\n1323974886,王五,B排1号\n1323974887,赵六,B排2号";
-    // 这是第一场的数据
-    `4106617362,Bronze,Corbeille 1 - 5,E-12
-9910855917,Bronze,Corbeille 1 - 6,G-12
-5999212868,Bronze,Corbeille 1 - 7,E-11
-2795261336,Bronze,Corbeille 1 - 8,G-11
-2814617220,Bronze,Corbeille 1 - 9,E-10
-8114559815,Bronze,Corbeille 1 - 10,G-10
-3020608002,Bronze,Corbeille 1 - 11,E-9
-5035769686,Bronze,Corbeille 1 - 12,G-9
-8811978504,Bronze,Corbeille 1 - 13,E-8
-1451116601,Bronze,Corbeille 1 - 14,G-8
-7036828469,Bronze,Corbeille 1 - 15,E-7
-8277922916,Bronze,Corbeille 1 - 16,G-7
-6047620366,Bronze,Corbeille 1 - 17,E-6
-2226182656,Bronze,Corbeille 1 - 18,G-6
-2471966004,Bronze,Corbeille 1 - 19,E-5
-1563734701,Bronze,Corbeille 1 - 20,G-5
-9463371197,Bronze,Corbeille 1 - 21,E-4
-8238224653,Bronze,Corbeille 1 - 22,G-4
-9970896496,Bronze,Corbeille 1 - 23,E-3
-7883496203,Bronze,Corbeille 1 - 24,G-3
-3223527436,Bronze,Corbeille 1 - 25,E-2
-1082518567,Bronze,Corbeille 1 - 26,G-2
-9282496082,Bronze + P2,Corbeille 1 - 27,E-1
-3181983006,Bronze,Corbeille 1 - 28,G-1
-4201246381,Silver,Corbeille 1 - 50,A-12
-4312642073,Silver,Corbeille 1 - 51,A-2
-5678754530,Silver,Corbeille 1 - 52,A-11
-6771762188,Silver,Corbeille 1 - 53,A-3
-8244646894,Silver,Corbeille 1 - 54,A-10
-1537912945,Silver,Corbeille 1 - 55,A-4
-2943406544,Silver + P2 + P1,Corbeille 1 - 56,A-9
-3239311176,Silver,Corbeille 1 - 57,A-5
-9900289749,Silver,Corbeille 1 - 58,A-8
-6296201221,Silver,Corbeille 1 - 59,A-6
-3801308154,Silver,Corbeille 1 - 60,A-7
-8096170282,Standard,Corbeille 2 - 29,F-10
-9075888073,Standard + P2,Corbeille 2 - 30,H-10
-3775297646,Standard,Corbeille 2 - 31,F-9
-2818576642,Standard,Corbeille 2 - 32,H-9
-2654267746,Standard,Corbeille 2 - 33,F-8
-3274124082,Standard,Corbeille 2 - 34,H-8
-1032724028,Standard,Corbeille 2 - 35,F-7
-4641917953,Standard,Corbeille 2 - 36,H-7
-3481026207,Standard,Corbeille 2 - 37,F-6
-3679863190,Standard + P2,Corbeille 2 - 38,H-6
-4285944460,Standard,Corbeille 2 - 39,F-5
-7212416318,Standard,Corbeille 2 - 40,H-5
-7580163304,Standard,Corbeille 2 - 41,F-4
-8934267661,Standard,Corbeille 2 - 42,H-4
-5016012276,Standard,Corbeille 2 - 43,F-3
-5860506270,Standard,Corbeille 2 - 44,H-3
-4990980982,Standard,Corbeille 2 - 45,F-2
-8370599072,Standard,Corbeille 2 - 46,H-2
-3376853229,Standard,Corbeille 2 - 47,F-1
-3075369896,Standard,Corbeille 2 - 48,H-1
-4851263617,Silver + P2,Corbeille 2 - 61,B-1
-3580185350,Silver + P2,Corbeille 2 - 62,B-14
-2737490887,Silver + P2,Corbeille 2 - 63,B-2
-9925494410,Silver,Corbeille 2 - 64,B-13
-4569613576,Silver + P2,Corbeille 2 - 65,B-3
-2721971867,Silver,Corbeille 2 - 66,B-12
-4651583024,Silver + P2,Corbeille 2 - 67,B-4
-1409791465,Silver + P2,Corbeille 2 - 68,B-11
-4030067886,Silver,Corbeille 2 - 69,B-5
-5920427928,Silver,Corbeille 2 - 70,B-10
-8157680030,Silver,Corbeille 2 - 71,B-6
-4924360406,Silver + P2,Corbeille 2 - 72,B-9
-6087140835,Silver + P2,Corbeille 2 - 73,B-7
-3102563136,Silver,Corbeille 2 - 74,B-8
-6858670380,Silver,Corbeille 3 - 75,C-1
-7733145695,Silver + P2,Corbeille 3 - 76,C-14
-7685985600,Silver + P2,Corbeille 3 - 77,C-2
-3883421038,Silver,Corbeille 3 - 78,C-13
-3606283929,Silver,Corbeille 3 - 79,C-3
-2603942195,Silver,Corbeille 3 - 80,C-12
-9905039984,Silver,Corbeille 3 - 81,C-4
-5002969228,Silver + P2,Corbeille 3 - 82,C-11
-8356235856,Silver,Corbeille 3 - 83,C-5
-9747619603,Silver + P2,Corbeille 3 - 84,C-10
-1480553172,Silver + P2,Corbeille 3 - 85,C-6
-1844210812,Silver,Corbeille 3 - 86,C-9
-7780870042,Silver,Corbeille 3 - 87,C-7
-4736358709,Silver,Corbeille 3 - 88,C-8
-1323974884,Silver,Corbeille 4 - 89,D-1
-6723278349,Silver + P1,Corbeille 4 - 90,D-16
-1894376341,Silver,Corbeille 4 - 91,D-2
-8886869087,Silver,Corbeille 4 - 92,D-15
-1767647381,Silver,Corbeille 4 - 93,D-3
-4328315833,Silver + P2,Corbeille 4 - 94,D-14
-9709645482,Silver,Corbeille 4 - 95,D-4
-6606419457,Silver,Corbeille 4 - 96,D-13
-9339420382,Silver,Corbeille 4 - 97,D-5
-8548904461,Silver,Corbeille 4 - 98,D-12
-5732617552,Silver,Corbeille 4 - 99,D-6
-5731620323,Silver,Corbeille 4 - 100,D-11
-2355473616,Silver,Corbeille 4 - 101,D-7
-4822078830,Silver,Corbeille 4 - 102,D-10
-1639926024,Silver,Corbeille 4 - 103,D-8
-5110364530,Silver + P1,Corbeille 4 - 104,D-9
-2980634390,Platinum1,Orchestra 1 - 17,A-2
-3594903948,Platinum2 + P2 + P1,Orchestra 1 - 18,A-16
-3762091635,Platinum1,Orchestra 1 - 19,A-3
-5317376938,Platinum2,Orchestra 1 - 20,A-15
-1921181744,Platinum1 + P1,Orchestra 1 - 21,A-4
-1313491298,Platinum2,Orchestra 1 - 22,A-14
-8847701559,Platinum1 + P2 + P1,Orchestra 1 - 23,A-5
-2194523026,Platinum2,Orchestra 1 - 24,A-13
-3637601882,Platinum1 + P2,Orchestra 1 - 25,A-6
-9146063586,Platinum2,Orchestra 1 - 26,A-12
-6208990433,Platinum1 + P1,Orchestra 1 - 27,A-7
-5196821577,Platinum2 + P2,Orchestra 1 - 28,A-11
-6011376496,Platinum1 + P1,Orchestra 1 - 29,A-8
-,Platinum2,Orchestra 1 - 30,A-10
-,Platinum1,Orchestra 1 - 31,A-9
-,Platinum2,Orchestra 1 - 32,A-9
-6032966391,Platinum1,Orchestra 2 - 33,B-1
-7074127223,Platinum2,Orchestra 2 - 34,B-16
-5742419749,Platinum1,Orchestra 2 - 35,B-2
-2823970481,Platinum2,Orchestra 2 - 36,B-15
-3418793747,Platinum1,Orchestra 2 - 37,B-3
-3024492494,Platinum2 + P2,Orchestra 2 - 38,B-14
-4322762980,Platinum1,Orchestra 2 - 39,B-4
-5171928219,Platinum2,Orchestra 2 - 40,B-13
-1063723348,Platinum1,Orchestra 2 - 41,B-5
-7501967155,Platinum2 + P2,Orchestra 2 - 42,B-12
-3085661226,Platinum1,Orchestra 2 - 43,B-6
-4625492341,Platinum2,Orchestra 2 - 44,B-11
-3821511421,Platinum1 + P1,Orchestra 2 - 45,B-7
-8089628465,Platinum2 + P2,Orchestra 2 - 46,B-10
-6792703768,Platinum1,Orchestra 2 - 47,B-8
-1899158227,Platinum2,Orchestra 2 - 48,B-9
-9495865692,Platinum1,Orchestra 3 - 49,C-1
-1639460474,Platinum2 + P2 + P1,Orchestra 3 - 50,C-16
-8503518181,Platinum1,Orchestra 3 - 51,C-2
-5804708703,Platinum2,Orchestra 3 - 52,C-15
-1248932575,Platinum1 + P1,Orchestra 3 - 53,C-3
-1224941685,Platinum2 + P2,Orchestra 3 - 54,C-14
-6359176455,Platinum1,Orchestra 3 - 55,C-4
-4928558303,Platinum2 + P2 + P1,Orchestra 3 - 56,C-13
-1570243144,Platinum1,Orchestra 3 - 57,C-5
-1090055630,Platinum2 + P2,Orchestra 3 - 58,C-12
-2419423305,Platinum1 + P1,Orchestra 3 - 59,C-6
-9370505631,Platinum2 + P2,Orchestra 3 - 60,C-11
-3810676058,Platinum1,Orchestra 3 - 61,C-7
-6763581705,Platinum2 + P2 + P1,Orchestra 3 - 62,C-10
-9834213789,Platinum1 + P1,Orchestra 3 - 63,C-8
-6873679164,Platinum2,Orchestra 3 - 64,C-9
-8657593329,Platinum1,Orchestra 4 - 65,D-1
-5535077171,Platinum2,Orchestra 4 - 66,D-16
-7993913426,Platinum1 + P2,Orchestra 4 - 67,D-2
-3157321557,Platinum2,Orchestra 4 - 68,D-15
-2279449251,Platinum1,Orchestra 4 - 69,D-3
-1264078534,Platinum2 + P2,Orchestra 4 - 70,D-14
-6406335474,Platinum1,Orchestra 4 - 71,D-4
-7350821500,Platinum2,Orchestra 4 - 72,D-13
-2906411505,Platinum1,Orchestra 4 - 73,D-5
-4228105149,Platinum2 + P2,Orchestra 4 - 74,D-12
-8388480190,Platinum1 + P1,Orchestra 4 - 75,D-6
-1301754801,Platinum2,Orchestra 4 - 76,D-11
-7491388034,Platinum1,Orchestra 4 - 77,D-7
-2621493343,Platinum2 + P2,Orchestra 4 - 78,D-10
-6977841824,Platinum1,Orchestra 4 - 79,D-8
-5964539512,Platinum2 + P2 + P1,Orchestra 4 - 80,D-9
-,Platinum1,Orchestra 5 - 81,E-1
-,Platinum2,Orchestra 5 - 82,E-16
-,Platinum1,Orchestra 5 - 83,E-2
-,Platinum2,Orchestra 5 - 84,E-15
-3238951739,Platinum1 + P2 + P1,Orchestra 5 - 85,E-3
-2740682624,Platinum2,Orchestra 5 - 86,E-14
-3999951442,Platinum1,Orchestra 5 - 87,E-4
-2191230175,Platinum2 + P2,Orchestra 5 - 88,E-13
-2741139690,Platinum1,Orchestra 5 - 89,E-5
-2219684839,Platinum2,Orchestra 5 - 90,E-12
-1374654498,Platinum1,Orchestra 5 - 91,E-6
-2863478126,Platinum2,Orchestra 5 - 92,E-11
-5428183435,Platinum1 + P2,Orchestra 5 - 93,E-7
-2573167605,Platinum2,Orchestra 5 - 94,E-10
-1954242230,Platinum1 + P2,Orchestra 5 - 95,E-8
-1366736631,Platinum2,Orchestra 5 - 96,E-9
-4656404948,Gold1,Orchestra 6 - 97,F-1
-2799353519,Gold2,Orchestra 6 - 98,F-16
-1678683588,Gold1,Orchestra 6 - 99,F-2
-9163180071,Gold2,Orchestra 6 - 100,F-15
-5659242619,Gold1,Orchestra 6 - 101,F-3
-8851379622,Gold2 + P2 + P1,Orchestra 6 - 102,F-14
-8669037563,Gold1 + P1,Orchestra 6 - 103,F-4
-4119567914,Gold2,Orchestra 6 - 104,F-13
-5231955650,Gold1,Orchestra 6 - 105,F-5
-9519956925,Gold2,Orchestra 6 - 106,F-12
-2787162255,Gold1,Orchestra 6 - 107,F-6
-6267559057,Gold2,Orchestra 6 - 108,F-11
-2926016024,Gold1,Orchestra 6 - 109,F-7
-4946793199,Gold2,Orchestra 6 - 110,F-10
-4213023280,Gold1,Orchestra 6 - 111,F-8
-2635520716,Gold2,Orchestra 6 - 112,F-9
-8706032305,Gold1,Orchestra 7 - 113,G-2
-3206033451,Standard,Orchestra 7 - 113bis,G-1
-8943434300,Gold2,Orchestra 7 - 114,G-17
-2010244471,Standard,Orchestra 7 - 114bis,G-18
-9509660544,Gold1 + P1,Orchestra 7 - 115,G-3
-7055495069,Gold2,Orchestra 7 - 116,G-16
-8261585943,Gold1 + P1,Orchestra 7 - 117,G-4
-3852173957,Gold2 + P2,Orchestra 7 - 118,G-15
-9062428158,Gold1,Orchestra 7 - 119,G-5
-2854921484,Gold2,Orchestra 7 - 120,G-14
-8390228534,Gold1,Orchestra 7 - 121,G-6
-4033850233,Gold2 + P2,Orchestra 7 - 122,G-13
-1687806144,Gold1,Orchestra 7 - 123,G-7
-4028189045,Gold2 + P2,Orchestra 7 - 124,G-12
-4354862596,Gold1,Orchestra 7 - 125,G-8
-1636570515,Gold2,Orchestra 7 - 126,G-11
-5880583639,Gold1 + P1,Orchestra 7 - 127,G-9
-8262793664,Gold2,Orchestra 7 - 128,G-10
-5255665277,Gold1,Orchestra 8 - 129,H-2
-5599636794,Standard,Orchestra 8 - 129bis,H-1
-1900896100,Gold2 + P2,Orchestra 8 - 130,H-17
-8712727759,Standard,Orchestra 8 - 130bis,H-18
-2967725838,Gold1,Orchestra 8 - 131,H-3
-6016624043,Gold2,Orchestra 8 - 132,H-16
-2328932892,Gold1,Orchestra 8 - 133,H-4
-2027283011,Gold2 + P2,Orchestra 8 - 134,H-15
-2915925023,Gold1 + P1,Orchestra 8 - 135,H-5
-5513614130,Gold2 + P2,Orchestra 8 - 136,H-14
-2323914630,Gold1,Orchestra 8 - 137,H-6
-2635225607,Gold2 + P2,Orchestra 8 - 138,H-13
-9970059587,Gold1,Orchestra 8 - 139,H-7
-6894445683,Gold2 + P2,Orchestra 8 - 140,H-12
-2622807367,Gold1,Orchestra 8 - 141,H-8
-4251678214,Gold2 + P2,Orchestra 8 - 142,H-11
-8040943347,Gold1 + P1,Orchestra 8 - 143,H-9
-2025249537,Gold2,Orchestra 8 - 144,H-10
-1908876941,Standard,Orchestra 9 - 145,I-1
-6373517859,Gold2,Orchestra 9 - 146,I-16
-2222625702,Standard,Orchestra 9 - 146bis,I-17
-9278452590,Gold1,Orchestra 9 - 147,I-2
-1586847445,Gold2 + P2,Orchestra 9 - 148,I-15
-2584350841,Gold1,Orchestra 9 - 149,I-3
-4130403876,Gold2,Orchestra 9 - 150,I-14
-9633151920,Gold1 + P1,Orchestra 9 - 151,I-4
-1827511923,Gold2,Orchestra 9 - 152,I-13
-6785055679,Gold1,Orchestra 9 - 153,I-5
-5666732594,Gold2,Orchestra 9 - 154,I-12
-2742451516,Gold1,Orchestra 9 - 155,I-6
-7946315644,Gold2,Orchestra 9 - 156,I-11
-9358283498,Gold1,Orchestra 9 - 157,I-7
-5608826139,Gold2,Orchestra 9 - 158,I-10
-3924502495,Gold1,Orchestra 9 - 159,I-8
-5836418588,Gold2 + P2,Orchestra 9 - 160,I-9
-4255980930,Standard,Orchestra 10 - 161,J-1
-3250907550,Gold2 + P1,Orchestra 10 - 162,J-16
-9931328947,Standard,Orchestra 10 - 162bis,J-17
-9836108164,Gold1,Orchestra 10 - 163,J-2
-8442911306,Gold2 + P2,Orchestra 10 - 164,J-15
-7916965703,Gold1 + P1,Orchestra 10 - 165,J-3
-9901916593,Gold2,Orchestra 10 - 166,J-14
-9435943465,Gold1,Orchestra 10 - 167,J-4
-1662885539,Gold2,Orchestra 10 - 168,J-13
-3705752487,Gold1,Orchestra 10 - 169,J-5
-4575837703,Gold2,Orchestra 10 - 170,J-12
-3788799456,Gold1 + P1,Orchestra 10 - 171,J-6
-9687559437,Gold2,Orchestra 10 - 172,J-11
-2251908605,Gold1 + P1,Orchestra 10 - 173,J-7
-4868896187,Gold2,Orchestra 10 - 174,J-10
-6327961611,Gold1 + P1,Orchestra 10 - 175,J-8
-2212452884,Gold1,Orchestra 10 - 176,J-9
-8596777134,Standard,Orchestra 11 - 177,K-1
-7625558728,Gold2,Orchestra 11 - 178,K-16
-4444829473,Standard,Orchestra 11 - 178bis,K-17
-6276472532,Gold1,Orchestra 11 - 179,K-2
-9841045016,Gold2,Orchestra 11 - 180,K-15
-1475689753,Gold1,Orchestra 11 - 181,K-3
-6298967678,Gold2,Orchestra 11 - 182,K-14
-2971467320,Gold1,Orchestra 11 - 183,K-4
-1606584087,Gold2,Orchestra 11 - 184,K-13
-8236350438,Gold1,Orchestra 11 - 185,K-5
-9175677311,Gold2,Orchestra 11 - 186,K-12
-2366714637,Gold1,Orchestra 11 - 187,K-6
-3097093572,Gold2,Orchestra 11 - 188,K-11
-4132570466,Gold1,Orchestra 11 - 189,K-7
-6462026682,Gold2,Orchestra 11 - 190,K-10
-9010993552,Gold1,Orchestra 11 - 191,K-8
-2507494526,Gold2,Orchestra 11 - 192,K-9
-8632589187,Standard,Orchestra 12 - 193,L-1
-8402861412,Gold2 + P2,Orchestra 12 - 194,M-14
-2852682803,Standard,Orchestra 12 - 194bis,L-16
-6219461100,Gold1,Orchestra 12 - 195,L-2
-6065689753,Gold2,Orchestra 12 - 196,L-15
-9537766244,Gold1,Orchestra 12 - 197,L-3
-1615538457,Gold2 + P2 + P1,Orchestra 12 - 198,L-14
-7788645464,Gold1,Orchestra 12 - 199,L-4
-6384770793,Gold2,Orchestra 12 - 200,L-13
-5702999374,Gold1,Orchestra 12 - 201,L-5
-5642530280,Gold2 + P1,Orchestra 12 - 202,L-12
-2556771414,Gold1,Orchestra 12 - 203,L-6
-3036563908,Gold2,Orchestra 12 - 204,L-11
-6898786787,Gold1,Orchestra 12 - 205,L-7
-2292605413,Gold2,Orchestra 12 - 206,L-10
-9256619033,Gold1 + P1,Orchestra 12 - 207,L-8
-7916326402,Gold2,Orchestra 12 - 208,L-9
-1495101506,Standard,Orchestra 13 - 209,M-1
-5261242353,Standard + P2,Orchestra 13 - 210bis,M-16
-9615670724,Gold1,Orchestra 13 - 211,M-2
-5950397049,Gold1,Orchestra 13 - 213,M-13
-3736489258,Gold1,Orchestra 13 - 215,M-3
-6471997687,Gold2,Orchestra 13 - 216,M-12
-7181722085,Gold1,Orchestra 13 - 217,M-4
-5238045755,Gold2,Orchestra 13 - 218,M-11
-6912510550,Gold1,Orchestra 13 - 219,M-5
-7211947872,Gold2,Orchestra 13 - 220,M-10
-7664401466,Gold1,Orchestra 13 - 221,M-6
-4480868775,Gold2,Orchestra 13 - 222,M-9
-5198371171,Gold1,Orchestra 13 - 223,M-7
-8677811419,Gold2,Orchestra 13 - 224,M-8
-3498269665,Standard,Orchestra 14 - 225,N-1
-9673165656,Standard,Orchestra 14 - 226,N-10
-8775377804,Standard,Orchestra 14 - 227,N-2
-9778668575,Standard,Orchestra 14 - 228,N-9
-8984657494,Standard,Orchestra 14 - 229,N-3
-1363992716,Standard,Orchestra 14 - 230,N-8
-3339553602,Standard,Orchestra 14 - 231,N-4
-2243930539,Standard,Orchestra 14 - 232,N-7
-7930655031,Standard,Orchestra 14 - 233,N-5
-6155717263,Standard,Orchestra 14 - 234,N-6`;
+    // 这是第二场的数据
+    `2653947502,Silver + P2,  Balcony 1 - 1
+5562351195,Bronze + Balcon - Folding Chair,  Balcony 1 - 1bis
+3989565226,Silver,  Balcony 1 - 2
+6618038670,Bronze + Balcon - Folding Chair,  Balcony 1 - 2bis
+2340300046,Silver,  Balcony 1 - 3
+8586698729,Silver,  Balcony 1 - 4
+3943253648,Silver + P2,  Balcony 1 - 5
+1813521170,Silver,  Balcony 1 - 6
+8628043154,Silver + P2,  Balcony 1 - 7
+7608523673,Silver,  Balcony 1 - 8
+8640475110,Silver + P2,  Balcony 1 - 9
+6704645999,Silver,  Balcony 1 - 10
+1163831270,Silver + P2,  Balcony 1 - 11
+4479029921,Silver,  Balcony 1 - 12
+3002177967,Silver + P2,  Balcony 2 - 13
+5188890341,Bronze + Balcon - Folding Chair,  Balcony 2 - 13bis
+6192560750,Silver,  Balcony 2 - 14
+4516931997,Bronze + Balcon - Folding Chair,  Balcony 2 - 14bis
+9797980241,Silver,  Balcony 2 - 15
+4096815905,Silver + P2,  Balcony 2 - 16
+3777592140,Silver,  Balcony 2 - 17
+5848759349,Silver,  Balcony 2 - 18
+1070980674,Silver,  Balcony 2 - 19
+9325479617,Silver,  Balcony 2 - 20
+1612007250,Silver + P2,  Balcony 2 - 21
+5406186104,Silver,  Balcony 2 - 22
+7682519713,Silver,  Balcony 2 - 23
+2856656492,Silver,  Balcony 2 - 25
+6453819607,Silver + P2,  Balcony 3 - 24
+5695827323,Bronze + Balcon - Folding Chair,  Balcony 3 - 25bis
+1888746854,Silver,  Balcony 3 - 26
+9346630147,Bronze + Balcon - Folding Chair,  Balcony 3 - 26bis
+5298023703,Silver,  Balcony 3 - 27
+6349793633,Silver,  Balcony 3 - 28
+3998673553,Silver,  Balcony 3 - 29
+6817393249,Silver,  Balcony 3 - 30
+6434755320,Silver,  Balcony 3 - 31
+2261731647,Silver,  Balcony 3 - 32
+8316041659,Silver,  Balcony 3 - 33
+6200061993,Silver + P2,  Balcony 3 - 34
+5079182604,Silver,  Balcony 3 - 35
+8958341373,Silver + P1,  Balcony 3 - 36
+5139351516,Silver,  Balcony 4 - 37
+6536675696,Bronze + Balcon - Folding Chair,  Balcony 4 - 37bis
+6874912547,Silver,  Balcony 4 - 38
+3966182510,Bronze + Balcon - Folding Chair,  Balcony 4 - 38bis
+4895407124,Silver,  Balcony 4 - 39
+4675840554,Silver,  Balcony 4 - 40
+4346952544,Silver,  Balcony 4 - 41
+2673022431,Silver,  Balcony 4 - 42
+6178146669,Silver,  Balcony 4 - 43
+3900462597,Silver,  Balcony 4 - 44
+7586695517,Silver,  Balcony 4 - 45
+1711062063,Silver,  Balcony 4 - 46
+7281044518,Silver,  Balcony 5 - 47
+6034483457,Bronze + Balcon - Folding Chair,  Balcony 5 - 47bis
+4055041694,Silver,  Balcony 5 - 48
+1754216478,Bronze + Balcon - Folding Chair,  Balcony 5 - 48bis
+9263998443,Silver,  Balcony 5 - 49
+5398664287,Silver + P2,  Balcony 5 - 50
+5809297023,Silver + P2,  Balcony 5 - 51
+8205581536,Silver + P2,  Balcony 5 - 52
+9529028295,Silver,  Balcony 5 - 53
+8755485745,Silver,  Balcony 5 - 54
+2343879283,Silver,  Balcony 5 - 55
+5141028617,Silver + P2,  Balcony 5 - 56
+7172534341,Silver,  Balcony 5 - 57
+9435315177,Silver,  Balcony 5 - 58
+5515716746,Silver,  Balcony 6 - 59
+8091427459,Bronze + Balcon - Folding Chair,  Balcony 6 - 59bis
+9915618364,Silver,  Balcony 6 - 60
+6576019093,Bronze + Balcon - Folding Chair,  Balcony 6 - 60bis
+4481181763,Silver + P2,  Balcony 6 - 61
+5143890859,Silver,  Balcony 6 - 62
+2472345383,Silver,  Balcony 6 - 63
+7681048294,Silver,  Balcony 6 - 64
+1759969588,Bronze + Balcon - Standard Seat,  Balcony 6 - 65
+3814057661,Bronze + Balcon - Standard Seat + P2,  Balcony 6 - 66
+4599456438,Bronze + Balcon - Standard Seat,  Balcony 6 - 67
+7198856822,Bronze + Balcon - Standard Seat,  Balcony 6 - 68
+4796441994,Bronze + Balcon - Standard Seat,  Balcony 6 - 69
+3297451145,Bronze + Balcon - Standard Seat,  Balcony 6 - 70
+4531716513,Bronze + Balcon - Standard Seat,  Balcony 7 - 71
+8102344358,Bronze + Balcon - Folding Chair,  Balcony 7 - 71bis
+9152298565,Bronze + Balcon - Standard Seat,  Balcony 7 - 72
+3663594476,Bronze + Balcon - Folding Chair,  Balcony 7 - 72bis
+1782401253,Bronze + Balcon - Standard Seat,  Balcony 7 - 73
+7943303660,Bronze + Balcon - Standard Seat,  Balcony 7 - 74
+2129857785,Standard,  Balcony 7 - 75
+3688441618,Standard,  Balcony 7 - 76
+7142641086,Standard,  Balcony 7 - 77
+5096566478,Standard,  Balcony 7 - 78
+3157410939,Standard,  Balcony 7 - 79
+2609284144,Standard,  Balcony 7 - 80
+7454162746,Standard,  Balcony 7 - 82
+3072055554,Standard,  Balcony 8 - 83
+4189806316,Standard,  Balcony 8 - 84
+8201577849,Standard,  Balcony 8 - 85
+4998203263,Standard,  Balcony 8 - 86
+1571921871,Standard,  Balcony 8 - 87
+7283724442,Standard,  Balcony 8 - 89
+4605085001,Standard,  Balcony 8 - 91
+6536752076,Gold1 + Back Box (Gold1),     Loge 1 - left
+9192639394,Gold1 + Back Box (Gold1),     Loge 1 - right
+9590142091,Gold1 + Back Box (Gold1),     Loge 2 - left
+4375595008,Gold1 + Back Box (Gold1),     Loge 2 - right
+7766895090,Gold2 + Back Box (Gold2) + P2,     Loge 4 - left_back
+4013441729,Gold2 + Back Box (Gold2),     Loge 4 - left_front
+7592130189,Gold2 + Back Box (Gold2),     Loge 4 - right_back
+6824910933,Gold2 + Back Box (Gold2) + P2,     Loge 4 - right_front
+,Platinum1,Orchestra 1 - 1
+9245417159,Gold1 + Folding Seat (Gold1),Orchestra 1 - 1bis
+,Platinum2,Orchestra 1 - 2
+3483494281,Gold2 + Folding Seat (Gold2),Orchestra 1 - 2bis
+7901986541,Platinum1 + P2,Orchestra 1 - 3
+,Platinum2,Orchestra 1 - 4
+9156881268,Platinum1,Orchestra 1 - 5
+7142746370,Platinum2,Orchestra 1 - 6
+2314072464,Platinum1,Orchestra 1 - 7
+5033088011,Platinum2,Orchestra 1 - 8
+2513642258,Platinum1 + P2 + P1,Orchestra 1 - 9
+5236363348,Platinum2,Orchestra 1 - 10
+2775934098,Platinum1 + P1,Orchestra 2 - 13
+4271281645,Gold1 + Folding Seat (Gold1),Orchestra 2 - 13bis
+7170271667,Platinum2 + P1,Orchestra 2 - 14
+9167829194,Gold2 + Folding Seat (Gold2),Orchestra 2 - 14bis
+3349309865,Platinum1 + P1,Orchestra 2 - 15
+8002085881,Platinum2 + P1,Orchestra 2 - 16
+3417945978,Platinum1,Orchestra 2 - 17
+3611858860,Platinum2 + P2,Orchestra 2 - 18
+7239069968,Platinum1 + P2,Orchestra 2 - 19
+2170060905,Platinum2,Orchestra 2 - 20
+5091913153,Platinum1,Orchestra 2 - 21
+8404502845,Platinum2 + P1,Orchestra 2 - 22
+5776536733,Platinum1,Orchestra 3 - 23
+1459678842,Gold1 + Folding Seat (Gold1),Orchestra 3 - 23bis
+3095085037,Platinum2 + P2,Orchestra 3 - 24
+8680395594,Gold2 + Folding Seat (Gold2),Orchestra 3 - 24bis
+3671614099,Platinum1,Orchestra 3 - 25
+8418025693,Platinum2 + P2,Orchestra 3 - 26
+3821279351,Platinum1 + P1,Orchestra 3 - 27
+2688367241,Platinum2 + P2,Orchestra 3 - 28
+6617389773,Platinum1,Orchestra 3 - 29
+5408157263,Platinum2 + P2,Orchestra 3 - 30
+6834725185,Platinum1 + P2,Orchestra 3 - 31
+2741028808,Platinum2,Orchestra 3 - 32
+8982990944,Platinum1,Orchestra 3 - 33
+2969385327,Platinum2 + P2,Orchestra 3 - 34
+5032791368,Platinum1,Orchestra 4 - 35
+5942517242,Gold1 + Folding Seat (Gold1),Orchestra 4 - 35bis
+2136481465,Platinum2 + P2,Orchestra 4 - 36
+7310927442,Gold2 + Folding Seat (Gold2),Orchestra 4 - 36bis
+7341689870,Platinum1 + P1,Orchestra 4 - 37
+9349922456,Platinum2,Orchestra 4 - 38
+1708820071,Platinum1 + P1,Orchestra 4 - 39
+3974180380,Platinum2 + P2,Orchestra 4 - 40
+5261481686,Platinum1,Orchestra 4 - 41
+5645169786,Platinum2 + P2,Orchestra 4 - 42
+1710514916,Platinum1 + P1,Orchestra 4 - 43
+1415083046,Platinum2 + P2,Orchestra 4 - 44
+1203225098,Platinum1,Orchestra 4 - 45
+8791808816,Platinum2 + P2,Orchestra 4 - 46
+5334604738,Platinum1,Orchestra 5 - 47
+6410522245,Gold1 + Folding Seat (Gold1),Orchestra 5 - 47bis
+5683583611,Platinum2,Orchestra 5 - 48
+5134503902,Gold2 + Folding Seat (Gold2),Orchestra 5 - 48bis
+2675653835,Platinum1,Orchestra 5 - 49
+4222990571,Platinum2,Orchestra 5 - 50
+8589363238,Platinum1 + P1,Orchestra 5 - 51
+3326514212,Platinum2 + P2,Orchestra 5 - 52
+3141282270,Platinum1,Orchestra 5 - 53
+2758674507,Platinum2,Orchestra 5 - 54
+6677039746,Platinum1,Orchestra 5 - 55
+2983007557,Platinum2 + P2,Orchestra 5 - 56
+6178681863,Platinum1 + P1,Orchestra 5 - 57
+6145158811,Platinum2,Orchestra 5 - 58
+5962230691,Platinum1,Orchestra 6 - 59
+6864239237,Gold1 + Folding Seat (Gold1) + P2,Orchestra 6 - 59bis
+9367321187,Platinum2,Orchestra 6 - 60
+1207464480,Gold2 + Folding Seat (Gold2),Orchestra 6 - 60bis
+1809531035,Platinum1,Orchestra 6 - 61
+3448297056,Platinum2,Orchestra 6 - 62
+2983542170,Platinum1,Orchestra 6 - 63
+8517912651,Platinum2,Orchestra 6 - 64
+4104181423,Platinum1,Orchestra 6 - 65
+7021018318,Platinum2,Orchestra 6 - 66
+4943813381,Platinum1,Orchestra 6 - 67
+6627689257,Platinum2,Orchestra 6 - 68
+5856655114,Platinum1,Orchestra 7 - 69
+1788331235,Gold1 + Folding Seat (Gold1) + P2,Orchestra 7 - 69bis
+8735236070,Platinum2,Orchestra 7 - 70
+7014713668,Gold2 + Folding Seat (Gold2),Orchestra 7 - 70bis
+,Platinum1,Orchestra 7 - 71
+4071747824,Platinum2,Orchestra 7 - 72
+,Platinum1,Orchestra 7 - 73
+,Platinum2,Orchestra 7 - 74
+,Platinum1,Orchestra 7 - 75
+,Platinum2,Orchestra 7 - 76
+,Platinum1,Orchestra 7 - 77
+,Platinum2,Orchestra 7 - 78
+,Platinum1,Orchestra 7 - 79
+,Platinum2,Orchestra 7 - 80
+,Platinum2,Orchestra 7 - 82
+,Platinum1,Orchestra 8 - 81
+1391269630,Gold1 + Standard Seat (Gold1),Orchestra 8 - 81
+3619232700,Gold1 + Folding Seat (Gold1),Orchestra 8 - 81bis
+6750692437,Gold2 + Folding Seat (Gold2) + P1,Orchestra 8 - 82bis
+2095881942,Gold1 + Standard Seat (Gold1),Orchestra 8 - 83
+8810705246,Gold2 + Standard Seat (Gold2) + P2,Orchestra 8 - 84
+6896153499,Gold1 + Standard Seat (Gold1),Orchestra 8 - 85
+7937526484,Gold2 + Standard Seat (Gold2) + P2,Orchestra 8 - 86
+4233727950,Gold1 + Standard Seat (Gold1),Orchestra 8 - 87
+6222437741,Gold2 + Standard Seat (Gold2),Orchestra 8 - 88
+8950169343,Gold1 + Standard Seat (Gold1),Orchestra 8 - 89
+5599783494,Gold2 + Standard Seat (Gold2),Orchestra 8 - 90
+8402187001,Gold1 + Standard Seat (Gold1),Orchestra 8 - 91
+3048718547,Gold2 + Standard Seat (Gold2) + P2,Orchestra 8 - 92
+3033583689,Gold1 + Standard Seat (Gold1) + P2 + P1,Orchestra 9 - 93
+9529465234,Gold1 + Folding Seat (Gold1),Orchestra 9 - 93bis
+8726285587,Gold2 + Standard Seat (Gold2),Orchestra 9 - 94
+9575772109,Gold2 + Folding Seat (Gold2),Orchestra 9 - 94bis
+7600921637,Gold1 + Standard Seat (Gold1),Orchestra 9 - 95
+2252048829,Gold2 + Standard Seat (Gold2),Orchestra 9 - 96
+7260684939,Gold1 + Standard Seat (Gold1),Orchestra 9 - 97
+1648504092,Gold2 + Standard Seat (Gold2),Orchestra 9 - 98
+9941784511,Gold1 + Standard Seat (Gold1),Orchestra 9 - 99
+4444877787,Gold2 + Standard Seat (Gold2),Orchestra 9 - 100
+1862376604,Gold1 + Standard Seat (Gold1),Orchestra 9 - 101
+1427129646,Gold2 + Standard Seat (Gold2),Orchestra 9 - 102
+6012870785,Gold1 + Standard Seat (Gold1),Orchestra 9 - 103
+4895314734,Gold2 + Standard Seat (Gold2),Orchestra 9 - 104
+1260153941,Gold1 + Standard Seat (Gold1),Orchestra 10 - 105
+1599976476,Gold1 + Folding Seat (Gold1),Orchestra 10 - 105bis
+9021450555,Gold2 + Standard Seat (Gold2),Orchestra 10 - 106
+8296072450,Gold2 + Folding Seat (Gold2) + P2,Orchestra 10 - 106bis
+5585789765,Gold1 + Standard Seat (Gold1),Orchestra 10 - 107
+4897667524,Gold2 + Standard Seat (Gold2),Orchestra 10 - 108
+9012432542,Gold1 + Standard Seat (Gold1),Orchestra 10 - 109
+2331900051,Gold2 + Standard Seat (Gold2),Orchestra 10 - 110
+7665061293,Gold1 + Standard Seat (Gold1),Orchestra 10 - 111
+8651948849,Gold2 + Standard Seat (Gold2),Orchestra 10 - 112
+7308458851,Gold1 + Standard Seat (Gold1),Orchestra 10 - 113
+4035803215,Gold2 + Standard Seat (Gold2),Orchestra 10 - 114
+8758832543,Gold1 + Standard Seat (Gold1) + P2,Orchestra 11 - 115
+8212070823,Gold1 + Folding Seat (Gold1),Orchestra 11 - 115bis
+5666653110,Gold2 + Standard Seat (Gold2) + P2,Orchestra 11 - 116
+7853623179,Gold2 + Folding Seat (Gold2) + P1,Orchestra 11 - 116bis
+9638443126,Gold1 + Standard Seat (Gold1) + P2,Orchestra 11 - 117
+5409023452,Gold2 + Standard Seat (Gold2),Orchestra 11 - 118
+3121939345,Gold1 + Standard Seat (Gold1),Orchestra 11 - 119
+7589189338,Gold2 + Standard Seat (Gold2),Orchestra 11 - 120
+5089048080,Gold1 + Standard Seat (Gold1),Orchestra 11 - 121
+2042131804,Gold2 + Standard Seat (Gold2),Orchestra 11 - 122
+1182909780,Gold1 + Standard Seat (Gold1) + P1,Orchestra 11 - 123
+1575438972,Gold2 + Standard Seat (Gold2),Orchestra 11 - 124
+3783377143,Gold1 + Standard Seat (Gold1),Orchestra 11 - 125
+4517027839,Gold2 + Standard Seat (Gold2),Orchestra 11 - 126
+3784953353,Gold1 + Standard Seat (Gold1),Orchestra 12 - 127
+2103757673,Gold1 + Folding Seat (Gold1),Orchestra 12 - 127bis
+2346034815,Gold2 + Standard Seat (Gold2) + P2,Orchestra 12 - 128
+4530586023,Gold2 + Folding Seat (Gold2),Orchestra 12 - 128bis
+1126662805,Gold1 + Standard Seat (Gold1),Orchestra 12 - 129
+6518392841,Gold2 + Standard Seat (Gold2),Orchestra 12 - 130
+3048958126,Gold1 + Standard Seat (Gold1),Orchestra 12 - 131
+7587171125,Gold2 + Standard Seat (Gold2),Orchestra 12 - 132
+3083589124,Gold1 + Standard Seat (Gold1),Orchestra 12 - 133
+4818403126,Gold2 + Standard Seat (Gold2),Orchestra 12 - 134
+6883609081,Gold1 + Standard Seat (Gold1) + P2,Orchestra 12 - 135
+9284179552,Gold2 + Standard Seat (Gold2),Orchestra 12 - 136
+5782748659,Gold1 + Standard Seat (Gold1),Orchestra 12 - 137
+7644063403,Gold2 + Standard Seat (Gold2),Orchestra 12 - 138
+9328894574,Gold1 + Standard Seat (Gold1),Orchestra 13 - 139
+6358763897,Gold2 + Standard Seat (Gold2),Orchestra 13 - 140
+7734762110,Gold2 + Standard Seat (Gold2),Orchestra 13 - 140bis
+3850374501,Gold1 + Standard Seat (Gold1),Orchestra 13 - 141
+5053081088,Gold2 + Standard Seat (Gold2) + P2,Orchestra 13 - 142
+2697013209,Gold1 + Standard Seat (Gold1),Orchestra 13 - 143
+9796454994,Gold2 + Standard Seat (Gold2),Orchestra 13 - 144
+4104181423,Gold1 + Standard Seat (Gold1),Orchestra 13 - 145
+4762240479,Gold2 + Standard Seat (Gold2) + P2,Orchestra 13 - 146
+3044413733,Gold1 + Standard Seat (Gold1),Orchestra 13 - 147
+4577383372,Gold2 + Standard Seat (Gold2),Orchestra 13 - 148`;
 
   loadCSV();
 }
@@ -781,30 +740,12 @@ function showScanResult(val) {
     return;
   }
 
-  // 根据是否已扫码显示不同内容
-  if (entry.scanned) {
-    // 重复扫码提示
-    el.innerHTML = `<div class="scan-result-card" style="border-color:var(--amber)">
-      <span class="badge amber">⚠️ 重复扫码</span>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:4px">Order: ${entry.key}</div>
-      <div style="font-size:18px;font-weight:600;margin-bottom:6px">${entry.name}</div>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:4px">座位</div>
-      <div class="scan-result-seat" style="margin-bottom:6px">${entry.seat}</div>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:4px">True Seat</div>
-      <div class="scan-result-seat">${entry.true_seat}</div>
-    </div>`;
-  } else {
-    // 首次扫码成功提示
-    el.innerHTML = `<div class="scan-result-card" style="border-color:var(--green)">
-      <span class="badge green">✅ 签到成功</span>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:4px">Order: ${entry.key}</div>
-      <div style="font-size:18px;font-weight:600;margin-bottom:6px">${entry.name}</div>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:4px">座位</div>
-      <div class="scan-result-seat" style="margin-bottom:6px">${entry.seat}</div>
-      <div style="font-size:12px;color:var(--text2);margin-bottom:4px">True Seat</div>
-      <div class="scan-result-seat">${entry.true_seat}</div>
-    </div>`;
-  }
+  el.innerHTML = `<div class="scan-result-card" style="border-color:var(--green)">
+    <span class="badge green">✅ SCAN OK!</span>
+    <div style="font-size:18px;font-weight:600;margin-bottom:6px">${entry.name}</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:4px">座位</div>
+    <div class="scan-result-seat">${entry.seat}</div>
+  </div>`;
 }
 
 function clearScanResult() {
@@ -942,26 +883,7 @@ async function onScanSuccess(decodedText) {
     // 场景：无效票 (低音)
     playBeep('error');
     showToast("⚠️ 无效票号：\n" + order);
-  } else if (entry.scanned) {
-    // // --- 新增：插入历史记录 ---
-    // scanHistory.unshift({ 
-    //   name: entry.name, 
-    //   seat: entry.seat, 
-    //   time: new Date().toLocaleString()
-    // });
-    // if (scanHistory.length > 30) scanHistory.pop(); // 保持最多30条
-
-    // 【关键】同步到 localStorage
-    // localStorage.setItem('scan_history', JSON.stringify(scanHistory));
-    // renderHistory(); // 渲染历史列表
-    // -----------------------
-
-    // 场景：重复扫码 (中音)
-    // 明确提示该票在何时被使用过
-    playBeep('duplicate');
-    showToast(`⚠️ 重复签到！\n\n该票已于 ${entry.scanned} 扫码。\n类别：${entry.name}\n座位：${entry.seat}`);
   } else {
-    // 首次扫码成功：记录数据
     entry.scanned = new Date().toLocaleString();
     localStorage.setItem('ticket_db', JSON.stringify(db));
     
@@ -969,7 +891,6 @@ async function onScanSuccess(decodedText) {
     scanHistory.unshift({ 
       name: entry.name, 
       seat: entry.seat, 
-      true_seat: entry.true_seat,
       time: entry.scanned 
     });
     if (scanHistory.length > 30) scanHistory.pop(); // 保持最多30条
@@ -992,7 +913,7 @@ async function onScanSuccess(decodedText) {
     // 成功提示
     // 场景：首次扫码 (高音)
     playBeep('success');
-    showToast(`✅ 签到成功！\n\n类别：${entry.name}\n座位：${entry.seat}\n真实座位：${entry.true_seat}`);
+    showToast(`✅ SUCCESS！\n\nCAT: ${entry.name}\nSEAT: ${entry.seat}`);
   }
 
   // 3. 开启定时器，3秒后才允许下一次签到（给用户足够的时间移开手机）
@@ -1098,10 +1019,11 @@ function renderTicket() {
   C128.draw(document.getElementById('ticket-barcode'), order, {barWidth:2,height:58,bg:'#fff',fg:'#1a1a18'});
 }
 
-window.onload = initFromStorage;
-// initScanner();
+// loadSample();
+// window.onload = initFromStorage;
+window.onload = loadSample;
+initScanner();
 
-renderTicket();
 </script>
 </body>
 </html>

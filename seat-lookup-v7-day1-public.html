@@ -236,7 +236,7 @@ function loadCSV() {
     const key = parts[0];
     if (/order|票号/i.test(key)) return;
     // 添加了 scanned
-    db[key] = { name: parts[1], seat: parts[2], scanned: null};
+    db[key] = { name: parts[1], seat: parts[2], true_seat: parts[3], scanned: null};
   });
   const n = Object.keys(db).length;
   document.getElementById('count-badge').textContent = n + ' 条';
@@ -269,329 +269,329 @@ function loadSample() {
   document.getElementById('csv-input').value =
     // "1323974884,张三,A排1号\n1323974885,李四,A排2号\n1323974886,王五,B排1号\n1323974887,赵六,B排2号";
     // 这是第一场的数据
-    `4106617362,Bronze,Corbeille 1 - 5
-9910855917,Bronze,Corbeille 1 - 6
-5999212868,Bronze,Corbeille 1 - 7
-2795261336,Bronze,Corbeille 1 - 8
-2814617220,Bronze,Corbeille 1 - 9
-8114559815,Bronze,Corbeille 1 - 10
-3020608002,Bronze,Corbeille 1 - 11
-5035769686,Bronze,Corbeille 1 - 12
-8811978504,Bronze,Corbeille 1 - 13
-1451116601,Bronze,Corbeille 1 - 14
-7036828469,Bronze,Corbeille 1 - 15
-8277922916,Bronze,Corbeille 1 - 16
-6047620366,Bronze,Corbeille 1 - 17
-2226182656,Bronze,Corbeille 1 - 18
-2471966004,Bronze,Corbeille 1 - 19
-1563734701,Bronze,Corbeille 1 - 20
-9463371197,Bronze,Corbeille 1 - 21
-8238224653,Bronze,Corbeille 1 - 22
-9970896496,Bronze,Corbeille 1 - 23
-7883496203,Bronze,Corbeille 1 - 24
-3223527436,Bronze,Corbeille 1 - 25
-1082518567,Bronze,Corbeille 1 - 26
-9282496082,Bronze + P2,Corbeille 1 - 27
-3181983006,Bronze,Corbeille 1 - 28
-4201246381,Silver,Corbeille 1 - 50
-4312642073,Silver,Corbeille 1 - 51
-5678754530,Silver,Corbeille 1 - 52
-6771762188,Silver,Corbeille 1 - 53
-8244646894,Silver,Corbeille 1 - 54
-1537912945,Silver,Corbeille 1 - 55
-2943406544,Silver + P2 + P1,Corbeille 1 - 56
-3239311176,Silver,Corbeille 1 - 57
-9900289749,Silver,Corbeille 1 - 58
-6296201221,Silver,Corbeille 1 - 59
-3801308154,Silver,Corbeille 1 - 60
-8096170282,Standard,Corbeille 2 - 29
-9075888073,Standard + P2,Corbeille 2 - 30
-3775297646,Standard,Corbeille 2 - 31
-2818576642,Standard,Corbeille 2 - 32
-2654267746,Standard,Corbeille 2 - 33
-3274124082,Standard,Corbeille 2 - 34
-1032724028,Standard,Corbeille 2 - 35
-4641917953,Standard,Corbeille 2 - 36
-3481026207,Standard,Corbeille 2 - 37
-3679863190,Standard + P2,Corbeille 2 - 38
-4285944460,Standard,Corbeille 2 - 39
-7212416318,Standard,Corbeille 2 - 40
-7580163304,Standard,Corbeille 2 - 41
-8934267661,Standard,Corbeille 2 - 42
-5016012276,Standard,Corbeille 2 - 43
-5860506270,Standard,Corbeille 2 - 44
-4990980982,Standard,Corbeille 2 - 45
-8370599072,Standard,Corbeille 2 - 46
-3376853229,Standard,Corbeille 2 - 47
-3075369896,Standard,Corbeille 2 - 48
-4851263617,Silver + P2,Corbeille 2 - 61
-3580185350,Silver + P2,Corbeille 2 - 62
-2737490887,Silver + P2,Corbeille 2 - 63
-9925494410,Silver,Corbeille 2 - 64
-4569613576,Silver + P2,Corbeille 2 - 65
-2721971867,Silver,Corbeille 2 - 66
-4651583024,Silver + P2,Corbeille 2 - 67
-1409791465,Silver + P2,Corbeille 2 - 68
-4030067886,Silver,Corbeille 2 - 69
-5920427928,Silver,Corbeille 2 - 70
-8157680030,Silver,Corbeille 2 - 71
-4924360406,Silver + P2,Corbeille 2 - 72
-6087140835,Silver + P2,Corbeille 2 - 73
-3102563136,Silver,Corbeille 2 - 74
-6858670380,Silver,Corbeille 3 - 75
-7733145695,Silver + P2,Corbeille 3 - 76
-7685985600,Silver + P2,Corbeille 3 - 77
-3883421038,Silver,Corbeille 3 - 78
-3606283929,Silver,Corbeille 3 - 79
-2603942195,Silver,Corbeille 3 - 80
-9905039984,Silver,Corbeille 3 - 81
-5002969228,Silver + P2,Corbeille 3 - 82
-8356235856,Silver,Corbeille 3 - 83
-9747619603,Silver + P2,Corbeille 3 - 84
-1480553172,Silver + P2,Corbeille 3 - 85
-1844210812,Silver,Corbeille 3 - 86
-7780870042,Silver,Corbeille 3 - 87
-4736358709,Silver,Corbeille 3 - 88
-1323974884,Silver,Corbeille 4 - 89
-6723278349,Silver + P1,Corbeille 4 - 90
-1894376341,Silver,Corbeille 4 - 91
-8886869087,Silver,Corbeille 4 - 92
-1767647381,Silver,Corbeille 4 - 93
-4328315833,Silver + P2,Corbeille 4 - 94
-9709645482,Silver,Corbeille 4 - 95
-6606419457,Silver,Corbeille 4 - 96
-9339420382,Silver,Corbeille 4 - 97
-8548904461,Silver,Corbeille 4 - 98
-5732617552,Silver,Corbeille 4 - 99
-5731620323,Silver,Corbeille 4 - 100
-2355473616,Silver,Corbeille 4 - 101
-4822078830,Silver,Corbeille 4 - 102
-1639926024,Silver,Corbeille 4 - 103
-5110364530,Silver + P1,Corbeille 4 - 104
-2980634390,Platinum1,Orchestra 1 - 17
-3594903948,Platinum2 + P2 + P1,Orchestra 1 - 18
-3762091635,Platinum1,Orchestra 1 - 19
-5317376938,Platinum2,Orchestra 1 - 20
-1921181744,Platinum1 + P1,Orchestra 1 - 21
-1313491298,Platinum2,Orchestra 1 - 22
-8847701559,Platinum1 + P2 + P1,Orchestra 1 - 23
-2194523026,Platinum2,Orchestra 1 - 24
-3637601882,Platinum1 + P2,Orchestra 1 - 25
-9146063586,Platinum2,Orchestra 1 - 26
-6208990433,Platinum1 + P1,Orchestra 1 - 27
-5196821577,Platinum2 + P2,Orchestra 1 - 28
-6011376496,Platinum1 + P1,Orchestra 1 - 29
-,Platinum2,Orchestra 1 - 30
-,Platinum1,Orchestra 1 - 31
-,Platinum2,Orchestra 1 - 32
-6032966391,Platinum1,Orchestra 2 - 33
-7074127223,Platinum2,Orchestra 2 - 34
-5742419749,Platinum1,Orchestra 2 - 35
-2823970481,Platinum2,Orchestra 2 - 36
-3418793747,Platinum1,Orchestra 2 - 37
-3024492494,Platinum2 + P2,Orchestra 2 - 38
-4322762980,Platinum1,Orchestra 2 - 39
-5171928219,Platinum2,Orchestra 2 - 40
-1063723348,Platinum1,Orchestra 2 - 41
-7501967155,Platinum2 + P2,Orchestra 2 - 42
-3085661226,Platinum1,Orchestra 2 - 43
-4625492341,Platinum2,Orchestra 2 - 44
-3821511421,Platinum1 + P1,Orchestra 2 - 45
-8089628465,Platinum2 + P2,Orchestra 2 - 46
-6792703768,Platinum1,Orchestra 2 - 47
-1899158227,Platinum2,Orchestra 2 - 48
-9495865692,Platinum1,Orchestra 3 - 49
-1639460474,Platinum2 + P2 + P1,Orchestra 3 - 50
-8503518181,Platinum1,Orchestra 3 - 51
-5804708703,Platinum2,Orchestra 3 - 52
-1248932575,Platinum1 + P1,Orchestra 3 - 53
-1224941685,Platinum2 + P2,Orchestra 3 - 54
-6359176455,Platinum1,Orchestra 3 - 55
-4928558303,Platinum2 + P2 + P1,Orchestra 3 - 56
-1570243144,Platinum1,Orchestra 3 - 57
-1090055630,Platinum2 + P2,Orchestra 3 - 58
-2419423305,Platinum1 + P1,Orchestra 3 - 59
-9370505631,Platinum2 + P2,Orchestra 3 - 60
-3810676058,Platinum1,Orchestra 3 - 61
-6763581705,Platinum2 + P2 + P1,Orchestra 3 - 62
-9834213789,Platinum1 + P1,Orchestra 3 - 63
-6873679164,Platinum2,Orchestra 3 - 64
-8657593329,Platinum1,Orchestra 4 - 65
-5535077171,Platinum2,Orchestra 4 - 66
-7993913426,Platinum1 + P2,Orchestra 4 - 67
-3157321557,Platinum2,Orchestra 4 - 68
-2279449251,Platinum1,Orchestra 4 - 69
-1264078534,Platinum2 + P2,Orchestra 4 - 70
-6406335474,Platinum1,Orchestra 4 - 71
-7350821500,Platinum2,Orchestra 4 - 72
-2906411505,Platinum1,Orchestra 4 - 73
-4228105149,Platinum2 + P2,Orchestra 4 - 74
-8388480190,Platinum1 + P1,Orchestra 4 - 75
-1301754801,Platinum2,Orchestra 4 - 76
-7491388034,Platinum1,Orchestra 4 - 77
-2621493343,Platinum2 + P2,Orchestra 4 - 78
-6977841824,Platinum1,Orchestra 4 - 79
-5964539512,Platinum2 + P2 + P1,Orchestra 4 - 80
-,Platinum1,Orchestra 5 - 81
-,Platinum2,Orchestra 5 - 82
-,Platinum1,Orchestra 5 - 83
-,Platinum2,Orchestra 5 - 84
-3238951739,Platinum1 + P2 + P1,Orchestra 5 - 85
-2740682624,Platinum2,Orchestra 5 - 86
-3999951442,Platinum1,Orchestra 5 - 87
-2191230175,Platinum2 + P2,Orchestra 5 - 88
-2741139690,Platinum1,Orchestra 5 - 89
-2219684839,Platinum2,Orchestra 5 - 90
-1374654498,Platinum1,Orchestra 5 - 91
-2863478126,Platinum2,Orchestra 5 - 92
-5428183435,Platinum1 + P2,Orchestra 5 - 93
-2573167605,Platinum2,Orchestra 5 - 94
-1954242230,Platinum1 + P2,Orchestra 5 - 95
-1366736631,Platinum2,Orchestra 5 - 96
-4656404948,Gold1,Orchestra 6 - 97
-2799353519,Gold2,Orchestra 6 - 98
-1678683588,Gold1,Orchestra 6 - 99
-9163180071,Gold2,Orchestra 6 - 100
-5659242619,Gold1,Orchestra 6 - 101
-8851379622,Gold2 + P2 + P1,Orchestra 6 - 102
-8669037563,Gold1 + P1,Orchestra 6 - 103
-4119567914,Gold2,Orchestra 6 - 104
-5231955650,Gold1,Orchestra 6 - 105
-9519956925,Gold2,Orchestra 6 - 106
-2787162255,Gold1,Orchestra 6 - 107
-6267559057,Gold2,Orchestra 6 - 108
-2926016024,Gold1,Orchestra 6 - 109
-4946793199,Gold2,Orchestra 6 - 110
-4213023280,Gold1,Orchestra 6 - 111
-2635520716,Gold2,Orchestra 6 - 112
-8706032305,Gold1,Orchestra 7 - 113
-3206033451,Standard,Orchestra 7 - 113bis
-8943434300,Gold2,Orchestra 7 - 114
-2010244471,Standard,Orchestra 7 - 114bis
-9509660544,Gold1 + P1,Orchestra 7 - 115
-7055495069,Gold2,Orchestra 7 - 116
-8261585943,Gold1 + P1,Orchestra 7 - 117
-3852173957,Gold2 + P2,Orchestra 7 - 118
-9062428158,Gold1,Orchestra 7 - 119
-2854921484,Gold2,Orchestra 7 - 120
-8390228534,Gold1,Orchestra 7 - 121
-4033850233,Gold2 + P2,Orchestra 7 - 122
-1687806144,Gold1,Orchestra 7 - 123
-4028189045,Gold2 + P2,Orchestra 7 - 124
-4354862596,Gold1,Orchestra 7 - 125
-1636570515,Gold2,Orchestra 7 - 126
-5880583639,Gold1 + P1,Orchestra 7 - 127
-8262793664,Gold2,Orchestra 7 - 128
-5255665277,Gold1,Orchestra 8 - 129
-5599636794,Standard,Orchestra 8 - 129bis
-1900896100,Gold2 + P2,Orchestra 8 - 130
-8712727759,Standard,Orchestra 8 - 130bis
-2967725838,Gold1,Orchestra 8 - 131
-6016624043,Gold2,Orchestra 8 - 132
-2328932892,Gold1,Orchestra 8 - 133
-2027283011,Gold2 + P2,Orchestra 8 - 134
-2915925023,Gold1 + P1,Orchestra 8 - 135
-5513614130,Gold2 + P2,Orchestra 8 - 136
-2323914630,Gold1,Orchestra 8 - 137
-2635225607,Gold2 + P2,Orchestra 8 - 138
-9970059587,Gold1,Orchestra 8 - 139
-6894445683,Gold2 + P2,Orchestra 8 - 140
-2622807367,Gold1,Orchestra 8 - 141
-4251678214,Gold2 + P2,Orchestra 8 - 142
-8040943347,Gold1 + P1,Orchestra 8 - 143
-2025249537,Gold2,Orchestra 8 - 144
-1908876941,Standard,Orchestra 9 - 145
-6373517859,Gold2,Orchestra 9 - 146
-2222625702,Standard,Orchestra 9 - 146bis
-9278452590,Gold1,Orchestra 9 - 147
-1586847445,Gold2 + P2,Orchestra 9 - 148
-2584350841,Gold1,Orchestra 9 - 149
-4130403876,Gold2,Orchestra 9 - 150
-9633151920,Gold1 + P1,Orchestra 9 - 151
-1827511923,Gold2,Orchestra 9 - 152
-6785055679,Gold1,Orchestra 9 - 153
-5666732594,Gold2,Orchestra 9 - 154
-2742451516,Gold1,Orchestra 9 - 155
-7946315644,Gold2,Orchestra 9 - 156
-9358283498,Gold1,Orchestra 9 - 157
-5608826139,Gold2,Orchestra 9 - 158
-3924502495,Gold1,Orchestra 9 - 159
-5836418588,Gold2 + P2,Orchestra 9 - 160
-4255980930,Standard,Orchestra10 - 161
-3250907550,Gold2 + P1,Orchestra10 - 162
-9931328947,Standard,Orchestra10 - 162bis
-9836108164,Gold1,Orchestra10 - 163
-8442911306,Gold2 + P2,Orchestra10 - 164
-7916965703,Gold1 + P1,Orchestra10 - 165
-9901916593,Gold2,Orchestra10 - 166
-9435943465,Gold1,Orchestra10 - 167
-1662885539,Gold2,Orchestra10 - 168
-3705752487,Gold1,Orchestra10 - 169
-4575837703,Gold2,Orchestra10 - 170
-3788799456,Gold1 + P1,Orchestra10 - 171
-9687559437,Gold2,Orchestra10 - 172
-2251908605,Gold1 + P1,Orchestra10 - 173
-4868896187,Gold2,Orchestra10 - 174
-6327961611,Gold1 + P1,Orchestra10 - 175
-2212452884,Gold1,Orchestra10 - 176
-8596777134,Standard,Orchestra11 - 177
-7625558728,Gold2,Orchestra11 - 178
-4444829473,Standard,Orchestra11 - 178bis
-6276472532,Gold1,Orchestra11 - 179
-9841045016,Gold2,Orchestra11 - 180
-1475689753,Gold1,Orchestra11 - 181
-6298967678,Gold2,Orchestra11 - 182
-2971467320,Gold1,Orchestra11 - 183
-1606584087,Gold2,Orchestra11 - 184
-8236350438,Gold1,Orchestra11 - 185
-9175677311,Gold2,Orchestra11 - 186
-2366714637,Gold1,Orchestra11 - 187
-3097093572,Gold2,Orchestra11 - 188
-4132570466,Gold1,Orchestra11 - 189
-6462026682,Gold2,Orchestra11 - 190
-9010993552,Gold1,Orchestra11 - 191
-2507494526,Gold2,Orchestra11 - 192
-8632589187,Standard,Orchestra12 - 193
-8402861412,Gold2 + P2,Orchestra12 - 194
-2852682803,Standard,Orchestra12 - 194bis
-6219461100,Gold1,Orchestra12 - 195
-6065689753,Gold2,Orchestra12 - 196
-9537766244,Gold1,Orchestra12 - 197
-1615538457,Gold2 + P2 + P1,Orchestra12 - 198
-7788645464,Gold1,Orchestra12 - 199
-6384770793,Gold2,Orchestra12 - 200
-5702999374,Gold1,Orchestra12 - 201
-5642530280,Gold2 + P1,Orchestra12 - 202
-2556771414,Gold1,Orchestra12 - 203
-3036563908,Gold2,Orchestra12 - 204
-6898786787,Gold1,Orchestra12 - 205
-2292605413,Gold2,Orchestra12 - 206
-9256619033,Gold1 + P1,Orchestra12 - 207
-7916326402,Gold2,Orchestra12 - 208
-1495101506,Standard,Orchestra13 - 209
-5261242353,Standard + P2,Orchestra13 - 210bis
-9615670724,Gold1,Orchestra13 - 211
-5950397049,Gold1,Orchestra13 - 213
-3736489258,Gold1,Orchestra13 - 215
-6471997687,Gold2,Orchestra13 - 216
-7181722085,Gold1,Orchestra13 - 217
-5238045755,Gold2,Orchestra13 - 218
-6912510550,Gold1,Orchestra13 - 219
-7211947872,Gold2,Orchestra13 - 220
-7664401466,Gold1,Orchestra13 - 221
-4480868775,Gold2,Orchestra13 - 222
-5198371171,Gold1,Orchestra13 - 223
-8677811419,Gold2,Orchestra13 - 224
-3498269665,Standard,Orchestra14 - 225
-9673165656,Standard,Orchestra14 - 226
-8775377804,Standard,Orchestra14 - 227
-9778668575,Standard,Orchestra14 - 228
-8984657494,Standard,Orchestra14 - 229
-1363992716,Standard,Orchestra14 - 230
-3339553602,Standard,Orchestra14 - 231
-2243930539,Standard,Orchestra14 - 232
-7930655031,Standard,Orchestra14 - 233
-6155717263,Standard,Orchestra14 - 234`;
+    `4106617362,Bronze,Corbeille 1 - 5,E-12
+9910855917,Bronze,Corbeille 1 - 6,G-12
+5999212868,Bronze,Corbeille 1 - 7,E-11
+2795261336,Bronze,Corbeille 1 - 8,G-11
+2814617220,Bronze,Corbeille 1 - 9,E-10
+8114559815,Bronze,Corbeille 1 - 10,G-10
+3020608002,Bronze,Corbeille 1 - 11,E-9
+5035769686,Bronze,Corbeille 1 - 12,G-9
+8811978504,Bronze,Corbeille 1 - 13,E-8
+1451116601,Bronze,Corbeille 1 - 14,G-8
+7036828469,Bronze,Corbeille 1 - 15,E-7
+8277922916,Bronze,Corbeille 1 - 16,G-7
+6047620366,Bronze,Corbeille 1 - 17,E-6
+2226182656,Bronze,Corbeille 1 - 18,G-6
+2471966004,Bronze,Corbeille 1 - 19,E-5
+1563734701,Bronze,Corbeille 1 - 20,G-5
+9463371197,Bronze,Corbeille 1 - 21,E-4
+8238224653,Bronze,Corbeille 1 - 22,G-4
+9970896496,Bronze,Corbeille 1 - 23,E-3
+7883496203,Bronze,Corbeille 1 - 24,G-3
+3223527436,Bronze,Corbeille 1 - 25,E-2
+1082518567,Bronze,Corbeille 1 - 26,G-2
+9282496082,Bronze + P2,Corbeille 1 - 27,E-1
+3181983006,Bronze,Corbeille 1 - 28,G-1
+4201246381,Silver,Corbeille 1 - 50,A-12
+4312642073,Silver,Corbeille 1 - 51,A-2
+5678754530,Silver,Corbeille 1 - 52,A-11
+6771762188,Silver,Corbeille 1 - 53,A-3
+8244646894,Silver,Corbeille 1 - 54,A-10
+1537912945,Silver,Corbeille 1 - 55,A-4
+2943406544,Silver + P2 + P1,Corbeille 1 - 56,A-9
+3239311176,Silver,Corbeille 1 - 57,A-5
+9900289749,Silver,Corbeille 1 - 58,A-8
+6296201221,Silver,Corbeille 1 - 59,A-6
+3801308154,Silver,Corbeille 1 - 60,A-7
+8096170282,Standard,Corbeille 2 - 29,F-10
+9075888073,Standard + P2,Corbeille 2 - 30,H-10
+3775297646,Standard,Corbeille 2 - 31,F-9
+2818576642,Standard,Corbeille 2 - 32,H-9
+2654267746,Standard,Corbeille 2 - 33,F-8
+3274124082,Standard,Corbeille 2 - 34,H-8
+1032724028,Standard,Corbeille 2 - 35,F-7
+4641917953,Standard,Corbeille 2 - 36,H-7
+3481026207,Standard,Corbeille 2 - 37,F-6
+3679863190,Standard + P2,Corbeille 2 - 38,H-6
+4285944460,Standard,Corbeille 2 - 39,F-5
+7212416318,Standard,Corbeille 2 - 40,H-5
+7580163304,Standard,Corbeille 2 - 41,F-4
+8934267661,Standard,Corbeille 2 - 42,H-4
+5016012276,Standard,Corbeille 2 - 43,F-3
+5860506270,Standard,Corbeille 2 - 44,H-3
+4990980982,Standard,Corbeille 2 - 45,F-2
+8370599072,Standard,Corbeille 2 - 46,H-2
+3376853229,Standard,Corbeille 2 - 47,F-1
+3075369896,Standard,Corbeille 2 - 48,H-1
+4851263617,Silver + P2,Corbeille 2 - 61,B-1
+3580185350,Silver + P2,Corbeille 2 - 62,B-14
+2737490887,Silver + P2,Corbeille 2 - 63,B-2
+9925494410,Silver,Corbeille 2 - 64,B-13
+4569613576,Silver + P2,Corbeille 2 - 65,B-3
+2721971867,Silver,Corbeille 2 - 66,B-12
+4651583024,Silver + P2,Corbeille 2 - 67,B-4
+1409791465,Silver + P2,Corbeille 2 - 68,B-11
+4030067886,Silver,Corbeille 2 - 69,B-5
+5920427928,Silver,Corbeille 2 - 70,B-10
+8157680030,Silver,Corbeille 2 - 71,B-6
+4924360406,Silver + P2,Corbeille 2 - 72,B-9
+6087140835,Silver + P2,Corbeille 2 - 73,B-7
+3102563136,Silver,Corbeille 2 - 74,B-8
+6858670380,Silver,Corbeille 3 - 75,C-1
+7733145695,Silver + P2,Corbeille 3 - 76,C-14
+7685985600,Silver + P2,Corbeille 3 - 77,C-2
+3883421038,Silver,Corbeille 3 - 78,C-13
+3606283929,Silver,Corbeille 3 - 79,C-3
+2603942195,Silver,Corbeille 3 - 80,C-12
+9905039984,Silver,Corbeille 3 - 81,C-4
+5002969228,Silver + P2,Corbeille 3 - 82,C-11
+8356235856,Silver,Corbeille 3 - 83,C-5
+9747619603,Silver + P2,Corbeille 3 - 84,C-10
+1480553172,Silver + P2,Corbeille 3 - 85,C-6
+1844210812,Silver,Corbeille 3 - 86,C-9
+7780870042,Silver,Corbeille 3 - 87,C-7
+4736358709,Silver,Corbeille 3 - 88,C-8
+1323974884,Silver,Corbeille 4 - 89,D-1
+6723278349,Silver + P1,Corbeille 4 - 90,D-16
+1894376341,Silver,Corbeille 4 - 91,D-2
+8886869087,Silver,Corbeille 4 - 92,D-15
+1767647381,Silver,Corbeille 4 - 93,D-3
+4328315833,Silver + P2,Corbeille 4 - 94,D-14
+9709645482,Silver,Corbeille 4 - 95,D-4
+6606419457,Silver,Corbeille 4 - 96,D-13
+9339420382,Silver,Corbeille 4 - 97,D-5
+8548904461,Silver,Corbeille 4 - 98,D-12
+5732617552,Silver,Corbeille 4 - 99,D-6
+5731620323,Silver,Corbeille 4 - 100,D-11
+2355473616,Silver,Corbeille 4 - 101,D-7
+4822078830,Silver,Corbeille 4 - 102,D-10
+1639926024,Silver,Corbeille 4 - 103,D-8
+5110364530,Silver + P1,Corbeille 4 - 104,D-9
+2980634390,Platinum1,Orchestra 1 - 17,A-2
+3594903948,Platinum2 + P2 + P1,Orchestra 1 - 18,A-16
+3762091635,Platinum1,Orchestra 1 - 19,A-3
+5317376938,Platinum2,Orchestra 1 - 20,A-15
+1921181744,Platinum1 + P1,Orchestra 1 - 21,A-4
+1313491298,Platinum2,Orchestra 1 - 22,A-14
+8847701559,Platinum1 + P2 + P1,Orchestra 1 - 23,A-5
+2194523026,Platinum2,Orchestra 1 - 24,A-13
+3637601882,Platinum1 + P2,Orchestra 1 - 25,A-6
+9146063586,Platinum2,Orchestra 1 - 26,A-12
+6208990433,Platinum1 + P1,Orchestra 1 - 27,A-7
+5196821577,Platinum2 + P2,Orchestra 1 - 28,A-11
+6011376496,Platinum1 + P1,Orchestra 1 - 29,A-8
+,Platinum2,Orchestra 1 - 30,A-10
+,Platinum1,Orchestra 1 - 31,A-9
+,Platinum2,Orchestra 1 - 32,A-9
+6032966391,Platinum1,Orchestra 2 - 33,B-1
+7074127223,Platinum2,Orchestra 2 - 34,B-16
+5742419749,Platinum1,Orchestra 2 - 35,B-2
+2823970481,Platinum2,Orchestra 2 - 36,B-15
+3418793747,Platinum1,Orchestra 2 - 37,B-3
+3024492494,Platinum2 + P2,Orchestra 2 - 38,B-14
+4322762980,Platinum1,Orchestra 2 - 39,B-4
+5171928219,Platinum2,Orchestra 2 - 40,B-13
+1063723348,Platinum1,Orchestra 2 - 41,B-5
+7501967155,Platinum2 + P2,Orchestra 2 - 42,B-12
+3085661226,Platinum1,Orchestra 2 - 43,B-6
+4625492341,Platinum2,Orchestra 2 - 44,B-11
+3821511421,Platinum1 + P1,Orchestra 2 - 45,B-7
+8089628465,Platinum2 + P2,Orchestra 2 - 46,B-10
+6792703768,Platinum1,Orchestra 2 - 47,B-8
+1899158227,Platinum2,Orchestra 2 - 48,B-9
+9495865692,Platinum1,Orchestra 3 - 49,C-1
+1639460474,Platinum2 + P2 + P1,Orchestra 3 - 50,C-16
+8503518181,Platinum1,Orchestra 3 - 51,C-2
+5804708703,Platinum2,Orchestra 3 - 52,C-15
+1248932575,Platinum1 + P1,Orchestra 3 - 53,C-3
+1224941685,Platinum2 + P2,Orchestra 3 - 54,C-14
+6359176455,Platinum1,Orchestra 3 - 55,C-4
+4928558303,Platinum2 + P2 + P1,Orchestra 3 - 56,C-13
+1570243144,Platinum1,Orchestra 3 - 57,C-5
+1090055630,Platinum2 + P2,Orchestra 3 - 58,C-12
+2419423305,Platinum1 + P1,Orchestra 3 - 59,C-6
+9370505631,Platinum2 + P2,Orchestra 3 - 60,C-11
+3810676058,Platinum1,Orchestra 3 - 61,C-7
+6763581705,Platinum2 + P2 + P1,Orchestra 3 - 62,C-10
+9834213789,Platinum1 + P1,Orchestra 3 - 63,C-8
+6873679164,Platinum2,Orchestra 3 - 64,C-9
+8657593329,Platinum1,Orchestra 4 - 65,D-1
+5535077171,Platinum2,Orchestra 4 - 66,D-16
+7993913426,Platinum1 + P2,Orchestra 4 - 67,D-2
+3157321557,Platinum2,Orchestra 4 - 68,D-15
+2279449251,Platinum1,Orchestra 4 - 69,D-3
+1264078534,Platinum2 + P2,Orchestra 4 - 70,D-14
+6406335474,Platinum1,Orchestra 4 - 71,D-4
+7350821500,Platinum2,Orchestra 4 - 72,D-13
+2906411505,Platinum1,Orchestra 4 - 73,D-5
+4228105149,Platinum2 + P2,Orchestra 4 - 74,D-12
+8388480190,Platinum1 + P1,Orchestra 4 - 75,D-6
+1301754801,Platinum2,Orchestra 4 - 76,D-11
+7491388034,Platinum1,Orchestra 4 - 77,D-7
+2621493343,Platinum2 + P2,Orchestra 4 - 78,D-10
+6977841824,Platinum1,Orchestra 4 - 79,D-8
+5964539512,Platinum2 + P2 + P1,Orchestra 4 - 80,D-9
+,Platinum1,Orchestra 5 - 81,E-1
+,Platinum2,Orchestra 5 - 82,E-16
+,Platinum1,Orchestra 5 - 83,E-2
+,Platinum2,Orchestra 5 - 84,E-15
+3238951739,Platinum1 + P2 + P1,Orchestra 5 - 85,E-3
+2740682624,Platinum2,Orchestra 5 - 86,E-14
+3999951442,Platinum1,Orchestra 5 - 87,E-4
+2191230175,Platinum2 + P2,Orchestra 5 - 88,E-13
+2741139690,Platinum1,Orchestra 5 - 89,E-5
+2219684839,Platinum2,Orchestra 5 - 90,E-12
+1374654498,Platinum1,Orchestra 5 - 91,E-6
+2863478126,Platinum2,Orchestra 5 - 92,E-11
+5428183435,Platinum1 + P2,Orchestra 5 - 93,E-7
+2573167605,Platinum2,Orchestra 5 - 94,E-10
+1954242230,Platinum1 + P2,Orchestra 5 - 95,E-8
+1366736631,Platinum2,Orchestra 5 - 96,E-9
+4656404948,Gold1,Orchestra 6 - 97,F-1
+2799353519,Gold2,Orchestra 6 - 98,F-16
+1678683588,Gold1,Orchestra 6 - 99,F-2
+9163180071,Gold2,Orchestra 6 - 100,F-15
+5659242619,Gold1,Orchestra 6 - 101,F-3
+8851379622,Gold2 + P2 + P1,Orchestra 6 - 102,F-14
+8669037563,Gold1 + P1,Orchestra 6 - 103,F-4
+4119567914,Gold2,Orchestra 6 - 104,F-13
+5231955650,Gold1,Orchestra 6 - 105,F-5
+9519956925,Gold2,Orchestra 6 - 106,F-12
+2787162255,Gold1,Orchestra 6 - 107,F-6
+6267559057,Gold2,Orchestra 6 - 108,F-11
+2926016024,Gold1,Orchestra 6 - 109,F-7
+4946793199,Gold2,Orchestra 6 - 110,F-10
+4213023280,Gold1,Orchestra 6 - 111,F-8
+2635520716,Gold2,Orchestra 6 - 112,F-9
+8706032305,Gold1,Orchestra 7 - 113,G-2
+3206033451,Standard,Orchestra 7 - 113bis,G-1
+8943434300,Gold2,Orchestra 7 - 114,G-17
+2010244471,Standard,Orchestra 7 - 114bis,G-18
+9509660544,Gold1 + P1,Orchestra 7 - 115,G-3
+7055495069,Gold2,Orchestra 7 - 116,G-16
+8261585943,Gold1 + P1,Orchestra 7 - 117,G-4
+3852173957,Gold2 + P2,Orchestra 7 - 118,G-15
+9062428158,Gold1,Orchestra 7 - 119,G-5
+2854921484,Gold2,Orchestra 7 - 120,G-14
+8390228534,Gold1,Orchestra 7 - 121,G-6
+4033850233,Gold2 + P2,Orchestra 7 - 122,G-13
+1687806144,Gold1,Orchestra 7 - 123,G-7
+4028189045,Gold2 + P2,Orchestra 7 - 124,G-12
+4354862596,Gold1,Orchestra 7 - 125,G-8
+1636570515,Gold2,Orchestra 7 - 126,G-11
+5880583639,Gold1 + P1,Orchestra 7 - 127,G-9
+8262793664,Gold2,Orchestra 7 - 128,G-10
+5255665277,Gold1,Orchestra 8 - 129,H-2
+5599636794,Standard,Orchestra 8 - 129bis,H-1
+1900896100,Gold2 + P2,Orchestra 8 - 130,H-17
+8712727759,Standard,Orchestra 8 - 130bis,H-18
+2967725838,Gold1,Orchestra 8 - 131,H-3
+6016624043,Gold2,Orchestra 8 - 132,H-16
+2328932892,Gold1,Orchestra 8 - 133,H-4
+2027283011,Gold2 + P2,Orchestra 8 - 134,H-15
+2915925023,Gold1 + P1,Orchestra 8 - 135,H-5
+5513614130,Gold2 + P2,Orchestra 8 - 136,H-14
+2323914630,Gold1,Orchestra 8 - 137,H-6
+2635225607,Gold2 + P2,Orchestra 8 - 138,H-13
+9970059587,Gold1,Orchestra 8 - 139,H-7
+6894445683,Gold2 + P2,Orchestra 8 - 140,H-12
+2622807367,Gold1,Orchestra 8 - 141,H-8
+4251678214,Gold2 + P2,Orchestra 8 - 142,H-11
+8040943347,Gold1 + P1,Orchestra 8 - 143,H-9
+2025249537,Gold2,Orchestra 8 - 144,H-10
+1908876941,Standard,Orchestra 9 - 145,I-1
+6373517859,Gold2,Orchestra 9 - 146,I-16
+2222625702,Standard,Orchestra 9 - 146bis,I-17
+9278452590,Gold1,Orchestra 9 - 147,I-2
+1586847445,Gold2 + P2,Orchestra 9 - 148,I-15
+2584350841,Gold1,Orchestra 9 - 149,I-3
+4130403876,Gold2,Orchestra 9 - 150,I-14
+9633151920,Gold1 + P1,Orchestra 9 - 151,I-4
+1827511923,Gold2,Orchestra 9 - 152,I-13
+6785055679,Gold1,Orchestra 9 - 153,I-5
+5666732594,Gold2,Orchestra 9 - 154,I-12
+2742451516,Gold1,Orchestra 9 - 155,I-6
+7946315644,Gold2,Orchestra 9 - 156,I-11
+9358283498,Gold1,Orchestra 9 - 157,I-7
+5608826139,Gold2,Orchestra 9 - 158,I-10
+3924502495,Gold1,Orchestra 9 - 159,I-8
+5836418588,Gold2 + P2,Orchestra 9 - 160,I-9
+4255980930,Standard,Orchestra 10 - 161,J-1
+3250907550,Gold2 + P1,Orchestra 10 - 162,J-16
+9931328947,Standard,Orchestra 10 - 162bis,J-17
+9836108164,Gold1,Orchestra 10 - 163,J-2
+8442911306,Gold2 + P2,Orchestra 10 - 164,J-15
+7916965703,Gold1 + P1,Orchestra 10 - 165,J-3
+9901916593,Gold2,Orchestra 10 - 166,J-14
+9435943465,Gold1,Orchestra 10 - 167,J-4
+1662885539,Gold2,Orchestra 10 - 168,J-13
+3705752487,Gold1,Orchestra 10 - 169,J-5
+4575837703,Gold2,Orchestra 10 - 170,J-12
+3788799456,Gold1 + P1,Orchestra 10 - 171,J-6
+9687559437,Gold2,Orchestra 10 - 172,J-11
+2251908605,Gold1 + P1,Orchestra 10 - 173,J-7
+4868896187,Gold2,Orchestra 10 - 174,J-10
+6327961611,Gold1 + P1,Orchestra 10 - 175,J-8
+2212452884,Gold1,Orchestra 10 - 176,J-9
+8596777134,Standard,Orchestra 11 - 177,K-1
+7625558728,Gold2,Orchestra 11 - 178,K-16
+4444829473,Standard,Orchestra 11 - 178bis,K-17
+6276472532,Gold1,Orchestra 11 - 179,K-2
+9841045016,Gold2,Orchestra 11 - 180,K-15
+1475689753,Gold1,Orchestra 11 - 181,K-3
+6298967678,Gold2,Orchestra 11 - 182,K-14
+2971467320,Gold1,Orchestra 11 - 183,K-4
+1606584087,Gold2,Orchestra 11 - 184,K-13
+8236350438,Gold1,Orchestra 11 - 185,K-5
+9175677311,Gold2,Orchestra 11 - 186,K-12
+2366714637,Gold1,Orchestra 11 - 187,K-6
+3097093572,Gold2,Orchestra 11 - 188,K-11
+4132570466,Gold1,Orchestra 11 - 189,K-7
+6462026682,Gold2,Orchestra 11 - 190,K-10
+9010993552,Gold1,Orchestra 11 - 191,K-8
+2507494526,Gold2,Orchestra 11 - 192,K-9
+8632589187,Standard,Orchestra 12 - 193,L-1
+8402861412,Gold2 + P2,Orchestra 12 - 194,M-14
+2852682803,Standard,Orchestra 12 - 194bis,L-16
+6219461100,Gold1,Orchestra 12 - 195,L-2
+6065689753,Gold2,Orchestra 12 - 196,L-15
+9537766244,Gold1,Orchestra 12 - 197,L-3
+1615538457,Gold2 + P2 + P1,Orchestra 12 - 198,L-14
+7788645464,Gold1,Orchestra 12 - 199,L-4
+6384770793,Gold2,Orchestra 12 - 200,L-13
+5702999374,Gold1,Orchestra 12 - 201,L-5
+5642530280,Gold2 + P1,Orchestra 12 - 202,L-12
+2556771414,Gold1,Orchestra 12 - 203,L-6
+3036563908,Gold2,Orchestra 12 - 204,L-11
+6898786787,Gold1,Orchestra 12 - 205,L-7
+2292605413,Gold2,Orchestra 12 - 206,L-10
+9256619033,Gold1 + P1,Orchestra 12 - 207,L-8
+7916326402,Gold2,Orchestra 12 - 208,L-9
+1495101506,Standard,Orchestra 13 - 209,M-1
+5261242353,Standard + P2,Orchestra 13 - 210bis,M-16
+9615670724,Gold1,Orchestra 13 - 211,M-2
+5950397049,Gold1,Orchestra 13 - 213,M-13
+3736489258,Gold1,Orchestra 13 - 215,M-3
+6471997687,Gold2,Orchestra 13 - 216,M-12
+7181722085,Gold1,Orchestra 13 - 217,M-4
+5238045755,Gold2,Orchestra 13 - 218,M-11
+6912510550,Gold1,Orchestra 13 - 219,M-5
+7211947872,Gold2,Orchestra 13 - 220,M-10
+7664401466,Gold1,Orchestra 13 - 221,M-6
+4480868775,Gold2,Orchestra 13 - 222,M-9
+5198371171,Gold1,Orchestra 13 - 223,M-7
+8677811419,Gold2,Orchestra 13 - 224,M-8
+3498269665,Standard,Orchestra 14 - 225,N-1
+9673165656,Standard,Orchestra 14 - 226,N-10
+8775377804,Standard,Orchestra 14 - 227,N-2
+9778668575,Standard,Orchestra 14 - 228,N-9
+8984657494,Standard,Orchestra 14 - 229,N-3
+1363992716,Standard,Orchestra 14 - 230,N-8
+3339553602,Standard,Orchestra 14 - 231,N-4
+2243930539,Standard,Orchestra 14 - 232,N-7
+7930655031,Standard,Orchestra 14 - 233,N-5
+6155717263,Standard,Orchestra 14 - 234,N-6`;
 
   loadCSV();
 }
@@ -784,8 +784,10 @@ function showScanResult(val) {
   el.innerHTML = `<div class="scan-result-card" style="border-color:var(--green)">
     <span class="badge green">✅ SCAN OK!</span>
     <div style="font-size:18px;font-weight:600;margin-bottom:6px">${entry.name}</div>
-    <div style="font-size:12px;color:var(--text2);margin-bottom:4px">座位</div>
-    <div class="scan-result-seat">${entry.seat}</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:4px">Seat on ticket</div>
+    <div class="scan-result-seat" style="margin-bottom:6px"}>${entry.seat}</div>
+    <div style="font-size:12px;color:var(--text2);margin-bottom:4px">True Seat</div>
+    <div class="scan-result-seat">${entry.true_seat}</div>
   </div>`;
 }
 
@@ -932,6 +934,7 @@ async function onScanSuccess(decodedText) {
     scanHistory.unshift({ 
       name: entry.name, 
       seat: entry.seat, 
+      true_seat: entry.true_seat,
       time: entry.scanned 
     });
     if (scanHistory.length > 30) scanHistory.pop(); // 保持最多30条
@@ -954,7 +957,7 @@ async function onScanSuccess(decodedText) {
     // 成功提示
     // 场景：首次扫码 (高音)
     playBeep('success');
-    showToast(`✅ SUCCESS！\n\nCAT: ${entry.name}\nSEAT: ${entry.seat}`);
+    showToast(`✅ SUCCESS！\n\nCAT: ${entry.name}\n\nSEAT on ticket: ${entry.seat}\n\nTRUE SEAT:      ${entry.true_seat}`);
   }
 
   // 3. 开启定时器，3秒后才允许下一次签到（给用户足够的时间移开手机）
